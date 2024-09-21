@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #This file contains all the important functions for simulating a european quantum network 
-# Netsquid has to be installed and the file lossmodel.py should be in the repository
+# Netsquid has to be installed 
 
 #Author : Raja Yehia (raja.yehia@gmail.com)
 
