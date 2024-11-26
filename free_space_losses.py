@@ -1515,6 +1515,7 @@ class UplinkChannel(DownlinkChannel):
                          ground_station_alt, aerial_platform_alt, zenith_angle, pointing_error, 
                          tracking_efficiency, Tatm, integral_gain, control_delay, integration_time, rng)
         self.D_tx = D_tx
+        self.R_rx = R_rx
 
     def _compute_anisoplanatic_error(self, length):
         """Compute anisoplanatic error
