@@ -1471,9 +1471,9 @@ class UplinkChannel(DownlinkChannel):
 
     ## Parameters
     ----------
-    `W0` : float
-        Waist radius of the beam at the receiver [m].
-    `tx_aperture` : float
+    `R_rx` : float
+        Radius of the receiver aperture on the balloon [m].
+    `D_tx` : float
         Diameter of the transmitting telescope [m].
     `obs_ratio` : float
         Obscuration ratio of the transmitting telescope.
@@ -1508,13 +1508,13 @@ class UplinkChannel(DownlinkChannel):
         :obj:`~netsquid.util.simtools.get_random_state` is used.
     """
 
-    def __init__(self, W0, tx_aperture, obs_ratio, n_max, Cn0, wind_speed, wavelength, 
+    def __init__(self, R_rx, D_tx, obs_ratio, n_max, Cn0, wind_speed, wavelength, 
                  ground_station_alt, aerial_platform_alt, zenith_angle, pointing_error = 0, 
                  tracking_efficiency = 0, Tatm = 1, integral_gain = 1, control_delay = 13.32e-4, integration_time = 6.66e-4, rng = None):
-        super().__init__(W0, tx_aperture, obs_ratio, n_max, Cn0, wind_speed, wavelength, 
+        super().__init__(R_rx, D_tx, obs_ratio, n_max, Cn0, wind_speed, wavelength, 
                          ground_station_alt, aerial_platform_alt, zenith_angle, pointing_error, 
                          tracking_efficiency, Tatm, integral_gain, control_delay, integration_time, rng)
-        self.tx_aperture = tx_aperture
+        self.D_tx = D_tx
 
     def _compute_anisoplanatic_error(self, length):
         """Compute anisoplanatic error
@@ -1530,7 +1530,7 @@ class UplinkChannel(DownlinkChannel):
         aerial_platform_alt = self.aerial_platform_alt*1e3
         k = 2*np.pi/self.wavelength
 
-        Lambda_0 = 2*length/(k*self.W0**2)
+        Lambda_0 = 2*length/(k*self.R_rx**2)
         Lambda = Lambda_0/(1 + Lambda_0**2)
         Theta = 1/(1 + Lambda_0**2)
         Theta_bar = 1 - Theta
@@ -1569,12 +1569,12 @@ class UplinkChannel(DownlinkChannel):
         else:
                 check = 0.36*np.sqrt(self.wavelength*length*1e3)* (rytov_var**(-3/5))
         if self.rx_aperture < check:
-            print("Warning ! The aperture averaging hypothesis is not valid for this set of parameters. Use bigger values of receiving aperture size")
-
+            print("Problem aperture averaging: AO level : {} , Aperture : {} , check: {}".format(self.n_max,self.rx_aperture,check))
+            # raise ValueError('The aperture averaging hypothesis is not valid for this set of parameters. Use bigger values of receiving aperture size')
         scint_index = self._compute_scintillation_index_spherical(rytov_var, z)
         r0 = self._compute_coherence_width_gaussian(z)
         eta_s = np.exp(-np.log(1 + scint_index))
-        bj2 = smf.bn2(self.tx_aperture, r0, n,self.obs_ratio)
+        bj2 = smf.bn2(self.D_tx, r0, n,self.obs_ratio)
 
         gamma_j = self._compute_attenuation_factors()
         bj2 = bj2*gamma_j
@@ -1583,7 +1583,8 @@ class UplinkChannel(DownlinkChannel):
         bj_wvln = np.sqrt(bj2)/(2*np.pi)
         bj_wlvn_max = np.max(bj_wvln)
         if bj_wlvn_max > 0.05:
-            print(f" Warning ! The maximum Zernike coefficient std in wavelenghts is {bj_wlvn_max}. The SMF PDF is accurate below the Rayleigh criterion (0.05). You may need to use higher order of correction or smaller integration time of the AO system.")
+            print("Problem Rayleigh: AO level : {} , check: {}".format(self.n_max,bj_wlvn_max))
+            # raise ValueError(f"The maximum Zernike coefficient std in wavelenghts is {bj_wlvn_max}. The SMF PDF is accurate below the Rayleigh criterion (0.05). You may need to use higher order of correction or smaller integration time of the AO system.")
         
         # Compute anisoplanatic error
         var_aniso = self._compute_anisoplanatic_error(z)
@@ -1622,7 +1623,8 @@ class UplinkChannel(DownlinkChannel):
         else:
                 check = 0.36*np.sqrt(self.wavelength*length*1e3)* (rytov_var**(-3/5))
         if self.rx_aperture < check:
-            print("Warning ! The aperture averaging hypothesis is not valid for this set of parameters. Use bigger values of receiving aperture size")
+            print("Problem aperture averaging: AO level : {} , Aperture : {} , check: {}".format(self.n_max,self.rx_aperture,check))
+            # raise ValueError('The aperture averaging hypothesis is not valid for this set of parameters. Use bigger values of receiving aperture size')
         
         scint_index = self._compute_scintillation_index_spherical(rytov_var, z)
         r0 = self._compute_coherence_width_gaussian(z)
@@ -1636,8 +1638,9 @@ class UplinkChannel(DownlinkChannel):
         bj_wvln = np.sqrt(bj2)/(2*np.pi)
         bj_wlvn_max = np.max(bj_wvln)
         if bj_wlvn_max > 0.05:
-            print(f" Warning ! The maximum Zernike coefficient std in wavelenghts is {bj_wlvn_max}. The SMF PDF is accurate below the Rayleigh criterion (0.05). You may need to use higher order of correction or smaller integration time of the AO system.")
-        
+            print("Problem Rayleigh: AO level : {} , check: {}".format(self.n_max,bj_wlvn_max))
+            # raise ValueError(f"The maximum Zernike coefficient std in wavelenghts is {bj_wlvn_max}. The SMF PDF is accurate below the Rayleigh criterion (0.05). You may need to use higher order of correction or smaller integration time of the AO system.")
+
         # Compute anisoplanatic error
         var_aniso = self._compute_anisoplanatic_error(z)
 
