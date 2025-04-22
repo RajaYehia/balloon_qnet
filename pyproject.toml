@@ -7,7 +7,7 @@ packages = [{ include = "balloon_qnet" }]
 
 [tool.poetry.dependencies]
 setuptools = "^78.1.0"
-python = "^3.12.3"
+python = ">=3.10.12, <=3.12.3"
 numpy = "^2.2.4"
 scipy = "^1.15.2"
 matplotlib = "^3.10.1"
@@ -15,14 +15,17 @@ multiprocess = "^0.70.17"
 pandas = "^2.2.3"
 meson = "^1.7.2"
 ninja = "^1.11.1.4"
-lowtran-piccia = { git = "https://github.com/francescopiccia/lowtran-piccia", rev = "main" }
-netsquid = "*"
+lowtran-piccia = { git = "https://github.com/francescopiccia/lowtran-piccia", develop = false }
+netsquid = { version = "*", source = "netsquid" }
 
 [[tool.poetry.source]]
 name = "netsquid"
 url = "https://pypi.netsquid.org"
-default = false
+secondary = true 
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+pre-install = "scripts.ensure_lowtran:build"  # Runs BEFORE installation
