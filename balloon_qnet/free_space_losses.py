@@ -6,18 +6,18 @@ from scipy.integrate import quad
 from matplotlib import pyplot as plt
 from scipy.special import erf
 from netsquid.util.simlog import warn_deprecated
-from cn2 import *
+from balloon_qnet import cn2
 from scipy.integrate import quad_vec
-import smf_coupling as smf
+from balloon_qnet import smf_coupling as smf
 import pandas as pd
 from math import fsum
 import random
 import warnings
 from scipy.special import gamma
 from scipy.special import kv
-import transmittance
-import cn2
+from balloon_qnet import transmittance as transmittance
 from scipy.linalg import inv
+
 """ This file contains the main functions of the free-space loss model for downlink, horizontal link and uplink."""
 
 #np.seterr(all='raise')
@@ -895,7 +895,7 @@ class DownlinkChannel(QuantumErrorModel):
         `Cn2` : float
             Index of refraction structure constant [m^(-2/3)].
         """
-        Cn2 = hufnagel_valley(h, self.wind_speed, self.Cn0)
+        Cn2 = cn2.hufnagel_valley(h, self.wind_speed, self.Cn0)
         return Cn2
     
     def _compute_rytov_variance_plane(self):

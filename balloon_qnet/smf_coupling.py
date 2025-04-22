@@ -357,7 +357,7 @@ def compute_eta_xi_probability_distribution(xi, bj2) -> float:
     """
     
     integrand = lambda x : (np.cos(np.sum((0.5*np.arctan(2*bj2*x))) - xi*x)/(np.prod(1 + (4*(x)**2*bj2**2))**0.25))
-    integral = quad_vec(integrand, 0, np.infty)[0]
+    integral = quad_vec(integrand, 0, np.inf)[0]
 
     return integral/np.pi
 
