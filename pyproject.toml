@@ -15,7 +15,6 @@ multiprocess = "^0.70.17"
 pandas = "^2.2.3"
 meson = "^1.7.2"
 ninja = "^1.11.1.4"
-lowtran-piccia = { git = "https://github.com/francescopiccia/lowtran-piccia", develop = false }
 netsquid = { version = "*", source = "netsquid" }
 
 [[tool.poetry.source]]
@@ -26,6 +25,3 @@ secondary = true
 [build-system]
 requires = ["poetry-core", "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-pre-install = "scripts.ensure_lowtran:build"  # Runs BEFORE installation
