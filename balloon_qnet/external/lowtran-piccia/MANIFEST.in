@@ -1,3 +1,0 @@
-include src/lowtran/CMakeLists.txt
-graft src/lowtran/cmake
-graft src/lowtran/fortran

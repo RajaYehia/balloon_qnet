@@ -1,7 +1,6 @@
 from matplotlib.pyplot import show
 from argparse import ArgumentParser
-import lowtran
-from lowtran.plot import horiz
+import balloon_qnet.lowtran_piccia as lowtran
 
 def horizontal(altitude, distance, wavelength):
     p = ArgumentParser(description = "Lowtran 7 interface")

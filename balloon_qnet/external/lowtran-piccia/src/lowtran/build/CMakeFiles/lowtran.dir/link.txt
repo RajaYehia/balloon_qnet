@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblowtran.a CMakeFiles/lowtran.dir/fortran/lowtran7.f.o
-/usr/bin/ranlib liblowtran.a

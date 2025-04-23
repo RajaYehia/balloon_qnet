@@ -1,9 +1,0 @@
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/lowtran.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/lowtran7.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/test.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/edit_cache.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/rebuild_cache.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/list_install_components.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/install.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/install/local.dir
-/home/ikarakosta/packages/lowtran-piccia/src/lowtran/build/CMakeFiles/install/strip.dir
