@@ -1,8 +1,6 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import  DownlinkChannel, compute_channel_length, CachedChannel, lut_zernike_index_pd
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import  DownlinkChannel, compute_channel_length, CachedChannel
 import multiprocessing as mlp
 import os
 import functools as fnct
@@ -14,9 +12,7 @@ import functools as fnct
 '''
 
 # Parameters
-
 wavelength = 1550e-9
-
 ground_station_alt = 0.020 #Altitude of the receiving telescope
 W0 = 0.1 #Initial Beam Waist
 obs_ratio_ground = 0.3 #Obscuration ratio of the receiving telescope 

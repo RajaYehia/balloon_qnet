@@ -1,12 +1,11 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import HorizontalChannel, CachedChannel,compute_height_min_horiz
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+import balloon_qnet.cn2 as cn2
+import balloon_qnet.cn2 as cn2
+from balloon_qnet.free_space_losses import HorizontalChannel, CachedChannel, compute_height_min_horiz
 import multiprocessing as mlp
 import os
 import functools as fnct
-
 
 '''This script calculates the mean transmittance of a Balloon-to-Balloon horizontal channel for different altitudes of the balloons. 
     It creates 4 HeightballoonTheo0X.txt files with the theoretical mean transmittance of the channel and 4 HeightballoonSimu0X.txt files with 
@@ -14,9 +13,7 @@ import functools as fnct
 '''
 
 # Parameters
-
 wavelength = 1550e-9
-
 obs_ratio_drone = 0.3 #Obscuration ratio of the receiving telescope
 Cn0 = 9.6*10**(-14) #Reference index of refraction structure constant at ground level
 u_rms = 10 #Wind speed

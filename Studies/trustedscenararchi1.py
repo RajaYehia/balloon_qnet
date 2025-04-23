@@ -1,15 +1,9 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import DownlinkChannel, compute_channel_length,CachedChannel,lut_zernike_index_pd, RE
-import multiprocessing as mlp
-import os
-import functools as fnct
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import DownlinkChannel, compute_channel_length,CachedChannel,lut_zernike_index_pd, RE
 
 """This script estimates and print the BB84 secret key rate between the two Qlients of the Italian network,
  as described in scenario of Fig17(a) of the paper """
-
 
 # Parameters
 wavelength = 1550e-9

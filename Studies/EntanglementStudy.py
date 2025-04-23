@@ -1,8 +1,6 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import DownlinkChannel, compute_channel_length,CachedChannel,lut_zernike_index_pd, RE
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import DownlinkChannel, CachedChannel, RE
 import multiprocessing as mlp
 import os
 import functools as fnct
