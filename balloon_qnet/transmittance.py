@@ -26,7 +26,7 @@ def horizontal(altitude, distance, wavelength, ihaze = 5):
         default = 0,
     )
     p.add_argument(
-        "-h",
+        "-i",
         "--ihaze",
         help="aerosol model",
         type = int,
@@ -82,7 +82,7 @@ def slant(altitude_1, altitude_2, wavelength, zenith_angle, ihaze = 5):
         default = zenith_angle,
     )
     p.add_argument(
-        "-h",
+        "-i",
         "--ihaze",
         help="aerosol model",
         type = int,
