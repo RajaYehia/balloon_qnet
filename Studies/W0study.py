@@ -1,12 +1,9 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import HorizontalChannel, DownlinkChannel, compute_channel_length, CachedChannel,lut_zernike_index_pd
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import DownlinkChannel, compute_channel_length, CachedChannel
 import multiprocessing as mlp
 import os
 import functools as fnct
-
 
 '''This script calculates the mean transmittance of a Balloon-to-Ground vertical downlink channel for different altitudes of the balloon. 
     It creates 4 W0Theo0X.txt files with the theoretical mean transmittance of the channel and 4 W0Simu0X.txt files with 
@@ -14,7 +11,6 @@ import functools as fnct
 '''
 
 # Parameters
-
 wavelength = 1550e-9
 zenith_angle = 0
 ground_station_alt = 0.020 #Altitude of the receiving telescope
