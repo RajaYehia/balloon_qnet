@@ -2,7 +2,7 @@ from matplotlib.pyplot import show
 from argparse import ArgumentParser
 import balloon_qnet.lowtran_piccia as lowtran
 
-def horizontal(altitude, distance, wavelength):
+def horizontal(altitude, distance, wavelength, ihaze = 5):
     p = ArgumentParser(description = "Lowtran 7 interface")
     p.add_argument(
         "-z",
@@ -25,6 +25,14 @@ def horizontal(altitude, distance, wavelength):
         type = float,
         default = 0,
     )
+    p.add_argument(
+        "-h",
+        "--ihaze",
+        help="aerosol model",
+        type = int,
+        default = ihaze,
+    )
+
     p.add_argument("-s", "--short", help = "shortest wavelength [nm]", type = float, default = 200)
     p.add_argument("-l", "--long", help = "longest wavelength [nm]", type = float, default = 30000)
     p.add_argument("-step", help = "wavelength step size [cm^-1]", type = float, default = 20)
@@ -36,7 +44,7 @@ def horizontal(altitude, distance, wavelength):
         "iemsct": 0, # tx mode
         "im": 0, # single scattering
         "ird1": 1, # card2C on
-        "ihaze": 5, # urban aerosol
+        "ihaze": P.ihaze, # urban aerosol
         "zmdl": P.obsalt, # altitude layer
         "h1": P.obsalt, # height of tx and rx
         "range_km": P.range_km, # distance between tx and rx
@@ -50,7 +58,7 @@ def horizontal(altitude, distance, wavelength):
 
     return TR.sel(wavelength_nm = [wavelength], method = "nearest")["transmission"].values[0]
 
-def slant(altitude_1, altitude_2, wavelength, zenith_angle):
+def slant(altitude_1, altitude_2, wavelength, zenith_angle, ihaze = 5):
     p = ArgumentParser(description = "Lowtran 7 interface")
     p.add_argument(
         "-z1",
@@ -73,6 +81,13 @@ def slant(altitude_1, altitude_2, wavelength, zenith_angle):
         type = float,
         default = zenith_angle,
     )
+    p.add_argument(
+        "-h",
+        "--ihaze",
+        help="aerosol model",
+        type = int,
+        default = ihaze,
+    )
     p.add_argument("-s", "--short", help = "shortest wavelength [nm]", type = float, default = 200)
     p.add_argument("-l", "--long", help = "longest wavelength [nm]", type = float, default = 30000)
     p.add_argument("-step", help = "wavelength step size [cm^-1]", type = float, default = 20)
@@ -84,7 +99,7 @@ def slant(altitude_1, altitude_2, wavelength, zenith_angle):
         "iemsct": 0, # tx mode
         "im": 0, # single scattering
         "ird1": 1, # card2C on
-        "ihaze": 5, # urban aerosol
+        "ihaze": P.ihaze, # urban aerosol
         "h1": P.obsalt1, # height of observer 1
         "h2": P.obsalt2, # height of observer 2
         "angle": P.zenang,
