@@ -35,7 +35,6 @@ from netsquid.components.clock import Clock
 from netsquid.qubits.dmtools import DenseDMRepr
 
 import sys
-from lossmodel import FreeSpaceLossModel, FixedSatelliteLossModel
 
 #Qlient parameters
 f_qubit_qlient = 100e6 #Qubit creation attempt frequency
