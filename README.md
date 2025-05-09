@@ -67,6 +67,12 @@ In particular:
 * `Data` contains the data included in the paper, which are the outputs of the scripts in `.txt` format. 
 * `Plot files` are the scripts used to generate the plots in the paper for each scenario considered.
 
+## Contributors
+
+Ilektra Karakosta-Amarantidou - University of Padova - [ilektra.karakostaamarantidou@unipd.it](mailto:ilektra.karakostaamarantidou@unipd.it) \
+Raja Yehia - ICFO - [raja.yehia@icfo.eu](mailto:raja.yehia@icfo.eu) \
+Matteo Schiavon - LIP6 (Sorbonne University) - [matteo.schiavon@lip6.fr](mailto:matteo.schiavon@lip6.fr)
+
 
 ## License
 
