@@ -1,17 +1,24 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 """This scripts produces a plot of the number of successfull MDI-QKD rounds per second for a ballon link and a fiber link
  using the txt outputs from MDI.py"""
+cur_path = os.path.dirname(__file__)
 
-file1 = open("MDIfree.txt","r")
+path = os.path.relpath('../data', cur_path)  
+
+NameSimu02 = os.path.join(path, "MDIfree.txt")         
+NameTheo02 = os.path.join(path, "MDIfiber.txt")
+
+file1 = open(NameSimu02,"r")
 L = file1.read().splitlines()
 key1 =[]
 for i in L:
     key1.append(float(i))
 file1.close()
 
-file2 = open("MDIfiber.txt","r")
+file2 = open(NameTheo02,"r")
 L = file2.read().splitlines()
 key2 =[]
 for i in L:
