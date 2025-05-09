@@ -170,8 +170,15 @@ trans = pool.map(fnct.partial(Study), dist_cities)
 pool.close()
 pool.join() 
 
-Free01 = open("EPRFreespace.txt","w")
-Fiber01 = open("EPRFiber.txt","w")
+## Data saving 
+
+save_path = '../data/'    
+
+NameFree = os.path.join(save_path, "EPRFreespace.txt")
+NameFiber = os.path.join(save_path, "EPRFiber.txt")
+Free01 = open(NameFree,"w")
+Fiber01 = open(NameFiber,"w")
+
 
 for height in trans:
     for rx in height:

@@ -25,7 +25,7 @@ h_balloons = [18,23,28,33] #Altitude range of the balloon
 
 dist_balloons = [1,10,15,20,25,50,60,75,100,125,150,175,200,225,250,275,300,350,400] #Distance between balloons
 
-simtime = 250
+simtime = 500000
 #Theoretical mean transmittance 
 
 def heightTheo(h_balloons,dist_balloons):
@@ -112,27 +112,35 @@ def Study(dist):
 
 #Parallelized version
 mlp.set_start_method('fork')
-pool_threads = os.cpu_count() - 2
+pool_threads = os.cpu_count() - 1
 pool = mlp.Pool(pool_threads)
 trans = pool.map(fnct.partial(Study), dist_balloons)
 pool.close()
 pool.join() 
 
-#Non-parallelized version
-#trans = []
-#for h in h_balloons:
-#    trans.append(Study(h))
-
 #Data saving    
-            
-Simu01 = open("HorizSimu01.txt","w")
-Theo01 = open("HorizTheo01.txt","w")
-Simu02 = open("HorizSimu02.txt","w")
-Theo02 = open("HorizTheo02.txt","w")
-Simu04 = open("HorizSimu04.txt","w")
-Theo04 = open("HorizTheo04.txt","w")
-Simu06 = open("HorizSimu06.txt","w")
-Theo06 = open("HorizTheo06.txt","w")
+save_path = '../data/'    
+
+NameSimu02 = os.path.join(save_path, "HorizSimu01.txt")
+NameTheo02 = os.path.join(save_path, "HorizTheo01.txt")
+
+NameSimu03 = os.path.join(save_path, "HorizSimu02.txt")
+NameTheo03 = os.path.join(save_path, "HorizTheo02.txt")
+
+NameSimu04 = os.path.join(save_path, "HorizSimu04.txt")
+NameTheo04 = os.path.join(save_path, "HorizTheo04.txt")
+
+NameSimu05 = os.path.join(save_path, "HorizSimu06.txt")
+NameTheo05 = os.path.join(save_path, "HorizTheo06.txt")    
+
+Simu01 = open(NameSimu02,"w")
+Theo01 = open(NameTheo02,"w")
+Simu02 = open(NameSimu03,"w")
+Theo02 = open(NameTheo03,"w")
+Simu04 = open(NameSimu04,"w")
+Theo04 = open(NameTheo04,"w")
+Simu06 = open(NameSimu05,"w")
+Theo06 = open(NameTheo05,"w")
 
 for height in trans:
     for rx in height:

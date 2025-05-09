@@ -25,7 +25,8 @@ h_balloons = 25 #Altitude range of the balloon
 
 dist_balloons = [1,10,15,20,25,50,60,75,100,125,150,175,200,225,250,275,300,350,400] #Distance between balloons
 W0 = [0.05,0.1,0.15,0.2]
-simtime = 250
+simtime = 500000
+
 #Theoretical mean transmittance 
 
 def heightTheo(dist_balloons,w):
@@ -123,15 +124,29 @@ pool.join()
 #    trans.append(Study(h))
 
 #Data saving    
-            
-Simu01 = open("HorizSimuW001.txt","w")
-Theo01 = open("HorizTheoW001.txt","w")
-Simu02 = open("HorizSimuW002.txt","w")
-Theo02 = open("HorizTheoW002.txt","w")
-Simu04 = open("HorizSimuW004.txt","w")
-Theo04 = open("HorizTheoW004.txt","w")
-Simu06 = open("HorizSimuW006.txt","w")
-Theo06 = open("HorizTheoW006.txt","w")
+save_path = '../data/'    
+
+NameSimu02 = os.path.join(save_path, "HorizSimuW001.txt")
+NameTheo02 = os.path.join(save_path, "HorizTheoW001.txt")
+
+NameSimu03 = os.path.join(save_path, "HorizSimuW002.txt")
+NameTheo03 = os.path.join(save_path, "HorizTheoW002.txt")
+
+NameSimu04 = os.path.join(save_path, "HorizSimuW004.txt")
+NameTheo04 = os.path.join(save_path, "HorizTheoW004.txt")
+
+NameSimu05 = os.path.join(save_path, "HorizSimuW006.txt")
+NameTheo05 = os.path.join(save_path, "HorizTheoW006.txt")    
+
+Simu01 = open(NameSimu02,"w")
+Theo01 = open(NameTheo02,"w")
+Simu02 = open(NameSimu03,"w")
+Theo02 = open(NameTheo03,"w")
+Simu04 = open(NameSimu04,"w")
+Theo04 = open(NameTheo04,"w")
+Simu06 = open(NameSimu05,"w")
+Theo06 = open(NameTheo05,"w")
+
 
 for height in trans:
     for rx in height:

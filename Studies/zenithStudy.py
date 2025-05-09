@@ -117,17 +117,33 @@ pool.join()
 
 
 #Data saving    
-            
-Simu01 = open("ZenithBalloonSimu01.txt","w")
-Theo01 = open("ZenithBalloonTheo01.txt","w")
-Simu02 = open("ZenithBalloonSimu02.txt","w")
-Theo02 = open("ZenithBalloonTheo02.txt","w")
-Simu04 = open("ZenithBalloonSimu04.txt","w")
-Theo04 = open("ZenithBalloonTheo04.txt","w")
-Simu06 = open("ZenithBalloonSimu06.txt","w")
-Theo06 = open("ZenithBalloonTheo06.txt","w")
-Simu08 = open("ZenithBalloonSimu08.txt","w")
-Theo08 = open("ZenithBalloonTheo08.txt","w")
+save_path = '../data/'    
+
+NameSimu02 = os.path.join(save_path, "ZenithBalloonSimu01.txt")
+NameTheo02 = os.path.join(save_path, "ZenithBalloonTheo01.txt")
+
+NameSimu03 = os.path.join(save_path, "ZenithBalloonSimu02.txt")
+NameTheo03 = os.path.join(save_path, "ZenithBalloonTheo02.txt")
+
+NameSimu04 = os.path.join(save_path, "ZenithBalloonSimu04.txt")
+NameTheo04 = os.path.join(save_path, "ZenithBalloonTheo04.txt")
+
+NameSimu05 = os.path.join(save_path, "ZenithBalloonSimu06.txt")
+NameTheo05 = os.path.join(save_path, "ZenithBalloonTheo06.txt")
+
+NameSimu06 = os.path.join(save_path, "ZenithBalloonSimu08.txt")
+NameTheo06 = os.path.join(save_path, "ZenithBalloonTheo08.txt")
+
+Simu01 = open(NameSimu02,"w")
+Theo01 = open(NameTheo02,"w")
+Simu02 = open(NameSimu03,"w")
+Theo02 = open(NameTheo03,"w")
+Simu04 = open(NameSimu04,"w")
+Theo04 = open(NameTheo04,"w")
+Simu06 = open(NameSimu05,"w")
+Theo06 = open(NameTheo05,"w")
+Simu08 = open(NameSimu06,"w")
+Theo08 = open(NameTheo06,"w")
 
 for height in trans:
     for rx in height:
