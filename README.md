@@ -2,6 +2,8 @@
 
 Repository containing NetSquid simulator of balloon-based quantum networks including downlink, uplink and horizontal free-space channels. 
 
+[![DOI](https://zenodo.org/badge/860917433.svg)](https://doi.org/10.5281/zenodo.15388481)
+
 ![balloon_net_example](spherical_earth.png)
 
 ## Article
