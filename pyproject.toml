@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "balloon_qnet"
-version = "0.1.0"
+version = "1.0.0"
 description = "Balloon-based quantum network simulator."
 authors = ["Ilektra Karakosta-Amarantidou", "Raja Yehia", "Matteo Schiavon"]
 packages = [{ include = "balloon_qnet" }]
