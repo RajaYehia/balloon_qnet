@@ -1,20 +1,15 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import UplinkChannel, compute_channel_length,CachedChannel,lut_zernike_index_pd, RE
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import UplinkChannel, CachedChannel, RE
 import multiprocessing as mlp
 import os
 import functools as fnct
 
 # Parameters
-
-
 wavelength = 1550e-9
 EPR_succ = 1
 ground_station_alt = 0.020 #Altitude of the receiving telescopes
 W0 = 0.1 #Initial Beam Waist 
-
 obs_ratio_ground = 0.3 #Obscuration ratio of the receiving telescope same
 n_max_ground = 10 #Maximum radial index of correction of AO system 
 Cn0 = 9.6*10**(-14) #Reference index of refraction structure constant at ground level
@@ -26,7 +21,7 @@ h_balloons = 35 #Altitude of the balloon (km)
 rx_aperture = 0.4 #Aperture of the receiving telescope (cm)
 p_transmit=1
 
-dist_cities = [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200] #distance between the cities (km)
+dist_cities = [10,20,]#30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200] #distance between the cities (km)
 ratesources = 80e6
 sourceeff=0.01
 QBER = 0.04
@@ -36,7 +31,7 @@ def h(p):
     return -p*np.log2(p)-(1-p)*np.log2(1-p)
 
 
-simtime = 10000000
+simtime = 100
 
 def GetRateMDI(dist_cities):
     ns.sim_reset()
@@ -168,8 +163,13 @@ trans = pool.map(fnct.partial(Study), dist_cities)
 pool.close()
 pool.join() 
 
-Free01 = open("MDItest.txt","w")
-Fiber01 = open("MDIfiber.txt","w")
+#Data saving
+save_path = '../data/'    
+
+NameFree = os.path.join(save_path, "MDIfree.txt")
+NameFiber = os.path.join(save_path, "MDIfiber.txt")
+Free01 = open(NameFree,"w")
+Fiber01 = open(NameFiber,"w")
 
 for height in trans:
     for rx in height:

@@ -1,12 +1,9 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import UplinkChannel, compute_channel_length, CachedChannel,lut_zernike_index_pd
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import UplinkChannel, compute_channel_length, CachedChannel
 import multiprocessing as mlp
 import os
 import functools as fnct
-
 
 '''This script calculates the mean transmittance of a Ground-To-Balloon vertical uplink channel for different altitudes of the balloon and 
    different order of correction of the AO system. 
@@ -15,7 +12,6 @@ import functools as fnct
 '''
 
 # Parameters
-
 wavelength = 1550e-9
 zenith_angle = 0
 ground_station_alt = 0.020 #Altitude of the receiving telescope
@@ -120,23 +116,38 @@ pool.close()
 pool.join() 
 
 #Data Saving
-Simu05 = open("UplinkAOSimu5.txt","w")
-Theo05 = open("UplinkAOTheo5.txt","w")
+save_path = '../data/'    
 
-Simu06 = open("UplinkAOSimu6.txt","w")
-Theo06 = open("UplinkAOTheo6.txt","w")
+NameSimu05 = os.path.join(save_path, "UplinkAOSimu5.txt")
+NameTheo05 = os.path.join(save_path, "UplinkAOTheo5.txt")
 
-Simu07 = open("UplinkAOSimu7.txt","w")
-Theo07 = open("UplinkAOTheo7.txt","w")
+NameSimu06 = os.path.join(save_path, "UplinkAOSimu6.txt")
+NameTheo06 = os.path.join(save_path, "UplinkAOTheo6.txt")
 
-Simu08 = open("UplinkAOSimu8.txt","w")
-Theo08 = open("UplinkAOTheo8.txt","w")
+NameSimu07 = os.path.join(save_path, "UplinkAOSimu7.txt")
+NameTheo07 = os.path.join(save_path, "UplinkAOTheo7.txt")
 
-Simu09 = open("UplinkAOSimu9.txt","w")
-Theo09 = open("UplinkAOTheo9.txt","w")
+NameSimu08 = os.path.join(save_path, "UplinkAOSimu8.txt")
+NameTheo08 = os.path.join(save_path, "UplinkAOTheo8.txt")
 
-Simu010 = open("UplinkAOSimu10.txt","w")
-Theo010 = open("UplinkAOTheo10.txt","w")
+NameSimu09 = os.path.join(save_path, "UplinkAOSimu9.txt")
+NameTheo09 = os.path.join(save_path, "UplinkAOTheo9.txt")
+
+NameSimu10 = os.path.join(save_path, "UplinkAOSimu10.txt")
+NameTheo10 = os.path.join(save_path, "UplinkAOTheo10.txt")
+
+Simu05 = open(NameSimu05, "w")
+Theo05 = open(NameTheo05, "w")
+Simu06 = open(NameSimu06, "w")
+Theo06 = open(NameTheo06, "w")
+Simu07 = open(NameSimu07, "w")
+Theo07 = open(NameTheo07, "w")
+Simu08 = open(NameSimu08, "w")
+Theo08 = open(NameTheo08, "w")
+Simu09 = open(NameSimu09, "w")
+Theo09 = open(NameTheo09, "w")
+Simu10 = open(NameSimu10, "w")
+Theo10 = open(NameTheo10, "w")
 
 
 for height in trans:
@@ -157,8 +168,8 @@ for height in trans:
            Simu09.write(str(rx[3])+ "\n") 
            Theo09.write(str(rx[5])+ "\n")
         if rx[1]==10:
-           Simu010.write(str(rx[3])+ "\n") 
-           Theo010.write(str(rx[5])+ "\n")
+           Simu10.write(str(rx[3])+ "\n") 
+           Theo10.write(str(rx[5])+ "\n")
 
 
 Simu05.close()
@@ -166,11 +177,11 @@ Simu06.close()
 Simu07.close()
 Simu08.close()
 Simu09.close()
-Simu010.close()
+Simu10.close()
 
 Theo05.close()
 Theo06.close()
 Theo07.close()
 Theo08.close()
 Theo09.close()
-Theo010.close()
+Theo10.close()

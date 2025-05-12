@@ -1,20 +1,18 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import HorizontalChannel, DownlinkChannel, compute_channel_length, CachedChannel,lut_zernike_index_pd
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import DownlinkChannel, compute_channel_length, CachedChannel
 import multiprocessing as mlp
 import os
 import functools as fnct
-
+from pathlib import Path
 
 '''This script calculates the mean transmittance of a Balloon-to-Ground vertical downlink channel for different altitudes of the balloon. 
     It creates 4 W0Theo0X.txt files with the theoretical mean transmittance of the channel and 4 W0Simu0X.txt files with 
     the simulated mean transmittance, for each of the considered initial beam waists.
 '''
 
-# Parameters
 
+# Parameters
 wavelength = 1550e-9
 zenith_angle = 0
 ground_station_alt = 0.020 #Altitude of the receiving telescope
@@ -29,8 +27,8 @@ tracking_efficiency = 0.8 #Tracking efficiency
 h_balloons = range(18,38) #Altitude range of the balloon
 rx_aperture_ground = 0.4 #Aperture of the receiving telescope
 
-W0 = [0.02,0.1,0.2,0.5]#Initial Beam Waist range
-simtime = 500000
+W0 = [0.05,0.1,0.15,0.2]#Initial Beam Waist range
+simtime = 500
 
 
 #Theoretical mean transmittance 
@@ -93,7 +91,7 @@ def heightSimu(h_balloons,W0):
     chan_eff = len(city.QlientKeys[balloon.name])/len(balloon.QlientKeys[city.name])
 
     print("Height of the balloon : " + str(h_balloons) + "km")
-    print("W0 : " + str(W0) + "cm")
+    print("W0 : " + str(W0) + "m")
     print("Number of qubits sent by the Balloon: " +str(len(balloon.QlientKeys[city.name])) )
     print("Number of qubits received by Bob (Qlient): " +str(len(city.QlientKeys[balloon.name])) )
     print("Channel efficiency : "+str(chan_eff) + " bits per channel use")
@@ -117,37 +115,48 @@ trans = pool.map(fnct.partial(Study), h_balloons)
 pool.close()
 pool.join() 
 
-#Data saving    
-            
-Simu01 = open("W0Simu01.txt","w")
-Theo01 = open("W0Theo01.txt","w")
-Simu02 = open("W0Simu02.txt","w")
-Theo02 = open("W0Theo02.txt","w")
-Simu04 = open("W0Simu03.txt","w")
-Theo04 = open("W0Theo03.txt","w")
-Simu06 = open("W0Simu04.txt","w")
-Theo06 = open("W0Theo04.txt","w")
+#Data saving
+
+save_path = '../data/'    
+
+NameSimu01 = os.path.join(save_path, "W0Simu01.txt") 
+NameTheo01 = os.path.join(save_path, "W0Theo01.txt")
+NameSimu02 = os.path.join(save_path, "W0Simu02.txt")
+NameTheo02 = os.path.join(save_path, "W0Theo02.txt")
+NameSimu03 = os.path.join(save_path, "W0Simu03.txt")
+NameTheo03 = os.path.join(save_path, "W0Theo03.txt")
+NameSimu04 = os.path.join(save_path, "W0Simu04.txt")
+NameTheo04 = os.path.join(save_path, "W0Theo04.txt")
+
+Simu01 = open(NameSimu01, "w")
+Theo01 = open(NameTheo01, "w")
+Simu02 = open(NameSimu02, "w")
+Theo02 = open(NameTheo02, "w")
+Simu03 = open(NameSimu03, "w")
+Theo03 = open(NameTheo03, "w")
+Simu04 = open(NameSimu04, "w")
+Theo04 = open(NameTheo04, "w")
 
 for height in trans:
     for rx in height:
         if rx[1]==0.05:
-            Simu01.write(str(rx[3])+ "\n") 
+            Simu01.write(str(rx[3])+ "\n")
             Theo01.write(str(rx[5])+ "\n")
         if rx[1]==0.1:
             Simu02.write(str(rx[3])+ "\n") 
             Theo02.write(str(rx[5])+ "\n")
         if rx[1]==0.15:
+            Simu03.write(str(rx[3])+ "\n") 
+            Theo03.write(str(rx[5])+ "\n")
+        if rx[1]==0.2:
             Simu04.write(str(rx[3])+ "\n") 
             Theo04.write(str(rx[5])+ "\n")
-        if rx[1]==0.2:
-            Simu06.write(str(rx[3])+ "\n") 
-            Theo06.write(str(rx[5])+ "\n")
 
 Simu01.close()
 Simu02.close()
+Simu03.close()
 Simu04.close()
-Simu06.close()
 Theo01.close()
 Theo02.close()
+Theo03.close()
 Theo04.close()
-Theo06.close()

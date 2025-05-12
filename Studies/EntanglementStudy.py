@@ -1,8 +1,6 @@
-from QEuropeFunctions import *
-import lowtran
-import transmittance
-import cn2
-from free_space_losses import DownlinkChannel, compute_channel_length,CachedChannel,lut_zernike_index_pd, RE
+from balloon_qnet.QEuropeFunctions import *
+import balloon_qnet.transmittance as transmittance
+from balloon_qnet.free_space_losses import DownlinkChannel, CachedChannel, RE
 import multiprocessing as mlp
 import os
 import functools as fnct
@@ -172,8 +170,15 @@ trans = pool.map(fnct.partial(Study), dist_cities)
 pool.close()
 pool.join() 
 
-Free01 = open("EPRFreespace.txt","w")
-Fiber01 = open("EPRFiber.txt","w")
+## Data saving 
+
+save_path = '../data/'    
+
+NameFree = os.path.join(save_path, "EPRFreespace.txt")
+NameFiber = os.path.join(save_path, "EPRFiber.txt")
+Free01 = open(NameFree,"w")
+Fiber01 = open(NameFiber,"w")
+
 
 for height in trans:
     for rx in height:

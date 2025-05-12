@@ -1,6 +1,6 @@
 # balloon_qnet
 
-Repository containing Netsquid simulator of balloon-based quantum networks including downlink, uplink and horizontal free-space channels. 
+Repository containing NetSquid simulator of balloon-based quantum networks including downlink, uplink and horizontal free-space channels. 
 
 ![balloon_net_example](spherical_earth.png)
 
@@ -22,17 +22,57 @@ If you are planning to use this code or data in your research, please cite:
 }
 ```
 
-## Installation
+## Installation 
 
 `balloon_qnet` uses the [NetSquid](https://netsquid.org/) Python package. To install and use NetSquid, you need to first create an account.
 
-Please take note that NetSquid only supports Linux and MacOS. For Windows users it is recommended to either use a virtual machine or use [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install).
+For the calculation of the atmospheric transmittance over the link, `balloon_qnet` contains a pre-compiled version of the [`lowtran-piccia` package](https://github.com/francescopiccia/lowtran-piccia).
 
-To run these function the following has to be installed:
+Please take note that both NetSquid and lowtran-piccia only work on Linux and MacOS. For Windows users it is recommended to use a virtual machine like [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install). 
 
-- Python version 3.9 at most
-- Netsquid, Quantum Network simulation tool, https://netsquid.org/
-- Lowtran from https://github.com/francescopiccia/lowtran-piccia
+For WSL, you can either use directly the terminal (we recommend [Windows Terminal](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-us&gl=ES)) or the [Visual Studio code extension](https://code.visualstudio.com/docs/remote/wsl). For visualizing plots, you may also install the [`tkinter` package](https://docs.python.org/3/library/tkinter.html):
+```
+apt install python3-tk
+```
+
+### Steps
+To install `balloon_qnet` from the source, you first have to clone this repository and then we recomment to create a virtual environment with the appropriate version of Python (the current version of the package has been tested and should be usable for **Python versions 3.12.3 and above**). Specifically, you have to run the following:
+
+```
+git clone https://github.com/RajaYehia/balloon_qnet
+cd balloon_qnet
+python -m venv .venv
+source .venv/bin/activate
+pip install --extra-index-url https://<username>:<password>@pypi.netsquid.org -e .
+```
+where `username` and `password` are your NetSquid credentials.
+
+## Structure
+This is the main structure of this repository:
+```
+balloon_qnet/
+├── .gitignore
+├── LICENSE
+├── README.md
+├── pyproject.toml
+├── spherical_earth.png
+├── balloon_qnet/
+├── data/
+├── Plot files/
+└── Studies/
+```
+In particular:
+* `balloon_qnet` contains the source code of the package, including the necessary modules and the compiled version of `lowtran-piccia`.
+* `Studies` has the scripts used to generate the different scenarios presented in the paper.
+* `Data` contains the data included in the paper, which are the outputs of the scripts in `.txt` format. 
+* `Plot files` are the scripts used to generate the plots in the paper for each scenario considered.
+
+## Contributors
+
+Ilektra Karakosta-Amarantidou - University of Padova - [ilektra.karakostaamarantidou@unipd.it](mailto:ilektra.karakostaamarantidou@unipd.it) \
+Raja Yehia - ICFO - [raja.yehia@icfo.eu](mailto:raja.yehia@icfo.eu) \
+Matteo Schiavon - LIP6 (Sorbonne University) - [matteo.schiavon@lip6.fr](mailto:matteo.schiavon@lip6.fr)
+
 
 ## License
 
